@@ -27,6 +27,15 @@ router.route("/login").post((req,res)=>{
         console.log(err);
     })
 });
+//get one user
+router.route("/:userName").get((req,res)=>{
+    let userName = req.params.userName;
+    User.find({userName:userName}).then((user =>{
+        res.json(user);
+    })).catch((err)=>{
+        console.log(err);
+    })
+});
 //get all users
 router.route("/").get((req,res)=>{
     User.find().then((users =>{
@@ -37,22 +46,31 @@ router.route("/").get((req,res)=>{
 })
 
 //update User
-router.route("/update/:id").put(async (req, res)=>{
+router.route("/update/:userName").put(async (req, res)=>{
     let userName = req.params.userName;
     const {firstName, lastName, password} = req.body;
 
     const updateUser = {
+        userName,
         firstName,
         lastName,
         password
     }
-    const update = await User.findByIdAndUpdate(userName, updateUser).then(()=> {
-        res.status(200).send({status: "User updated"})
+    let id = 0;
+    await User.find({userName:userName}).then((user)=>{
+        id = user[0].id;
     }).catch((err)=>{
         console.log(err);
-        res.status(500).send({status: "Error with updating data"});
-
     })
+    if(id){
+        const update = await User.findByIdAndUpdate(id, updateUser).then(()=> {
+            res.status(200).send({status: "User updated"})
+        }).catch((err)=>{
+            console.log(err);
+            res.status(500).send({status: "Error with updating data"});
+    
+        })
+    }
 
 })
 
