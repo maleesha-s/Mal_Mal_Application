@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:fluttertoast/fluttertoast.dart';
 //user class
 class User{
   final String userName;
@@ -36,10 +36,19 @@ Future<User> addNewUser(String userName, String firstName, String lastName, Stri
       'password':password
     }),
   );
-  if (response.statusCode == 201) {
+  if (response.statusCode == 200) {
+    Fluttertoast.showToast(
+        msg: "User Successfully Added!",
+        //toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
     return User.fromJson(jsonDecode(response.body));
   } else {
-    throw Exception('Failed to create album.');
+    throw Exception('Failed to add this user.');
   }
 }
 class Body extends StatefulWidget {
@@ -53,7 +62,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   @override
   Widget build(BuildContext context) {
     final TextEditingController _controllerFirstName = TextEditingController();

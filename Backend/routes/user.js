@@ -18,7 +18,15 @@ router.route("/addUser").post((req, res) => {
         console.log(err);
     })
 })
-
+//login
+router.route("/login").post((req,res)=>{
+    const {userName,password} = req.body;
+    User.find({userName:userName,password:password}).then((user =>{
+        res.json(user);
+    })).catch((err)=>{
+        console.log(err);
+    })
+});
 //get all users
 router.route("/").get((req,res)=>{
     User.find().then((users =>{
@@ -58,6 +66,8 @@ router.route("/delete/:id").delete(async (req, res)=>{
         res.status(500).send({status: "Error with delete "+ err.message});
     })
 })
+
+
 
 
 module.exports = router;
