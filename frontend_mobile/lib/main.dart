@@ -1,5 +1,6 @@
 import 'package:frontend_mobile/screens/Login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/screens/SignUp/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Login(),
+      home: const Signup(),
     );
   }
 }
