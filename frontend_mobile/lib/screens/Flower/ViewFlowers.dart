@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:frontend_mobile/screens/Flower/AddFlower.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 List<Flowers> postFromJson(String str) =>
@@ -70,15 +72,27 @@ class _ViewState extends State<ViewFlowers> {
   @override
   Widget build(BuildContext context) {
     const appTitle = 'All Flowers'; 
+    
     return MaterialApp(
        title: appTitle,  
+       
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ), 
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('All FLowers'),
+          title: const Text('All Flowers'),
+          actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).pushNamed(AddFlower.routeName);
+            }, 
+            icon: const Icon(
+              Icons.add,
+              ),
+          ),
+        ],
         ),
         body: FutureBuilder<List<Flowers>>(
           future: futurePost,
@@ -129,9 +143,7 @@ class _ViewState extends State<ViewFlowers> {
                         // ignore: unnecessary_string_interpolations
                         Text("${snapshot.data![index].description}",
                         style: const TextStyle(
-                                
                                 fontSize: 15.0,
-                                
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromARGB(255, 138, 137, 135),
                             )
@@ -142,18 +154,6 @@ class _ViewState extends State<ViewFlowers> {
                        Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                    
-                      ElevatedButton(
-                        child: const Text('Delete Data'),
-                        onPressed: () {
-                          setState(() {
-                            futurePost = deleteFlower(snapshot.data![index].flowerName) as Future<List<Flowers>>;
-                          });
-                        },
-                      ),
-                      Container(  
-                        padding: const EdgeInsets.only(left: 150.0, top: 20.0),  
-                      ), 
                       ElevatedButton(
                         child: const Text('Update Data'),
                         onPressed: () {
@@ -169,10 +169,40 @@ class _ViewState extends State<ViewFlowers> {
                           ),
                         );
                         },
+                        style: ElevatedButton.styleFrom(
+                        primary: Color.fromARGB(255, 230, 196, 49),
+                        onPrimary: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                        
+                        padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0)
                       ),
-                    ],
-                  )
+                      ),
+                      Container(  
+                        padding: const EdgeInsets.only(left: 150.0, top: 20.0),  
+                      ),
+
+                      ElevatedButton(
+                        child: const Text('Delete Data'),
+                        onPressed: () {
+                          setState(() {
+                            futurePost = deleteFlower(snapshot.data![index].flowerName) as Future<List<Flowers>>;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                        primary: Color.fromARGB(255, 240, 97, 97),
+                        onPrimary: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 50.0)
+                        ),
+                      ),
+                       
                       ],
+                    )
+                    ],
                     ),
                     
                   ),
@@ -190,63 +220,9 @@ class _ViewState extends State<ViewFlowers> {
   }
 }
 
-// Future<bool> alertDialog({required String flowerName, required String commonNames, required String description}) {
-//   TextEditingController textEditingController =
-//         TextEditingController(text: flowerName);
-
-//     void updateData() {
-//       var url = "http://localhost:8070/flowers/updateFlower/";
-//       http.post(url, body: {
-//         "flowerName": flowerName,
-//         "commonNames": textEditingController.text,
-//       });
-//     }
-//     return showDialog(
-//       context: context,
-//       builder: (context) => new AlertDialog(
-//         title: Column(
-//           children: [
-//             TextFormField(
-//               controller: textEditingController,
-//               onChanged: (String value) {
-//                 setState(() {
-//                   title = value;
-//                 });
-//               },
-//               onFieldSubmitted: (v) {
-//                 updateData();
-//               },
-//               decoration: InputDecoration(labelText: 'Title'),
-//             ),
-//             Container(
-//               width: 300.0,
-//               margin: EdgeInsets.only(top: 10.0),
-//               child: RaisedButton(
-//                 color: Colors.blue,
-//                 child: Text(
-//                   'Update Data',
-//                   style: TextStyle(color: Colors.white),
-//                 ),
-//                 onPressed: () {
-//                   updateData();
-//                 },
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-  
-
-// }
-
+// Update screen
 class DetailScreen extends StatelessWidget {
-  
-  
   const DetailScreen({Key? key}) : super(key: key);
-
-  
-
   @override
   Widget build(BuildContext context) {
     final flowers = ModalRoute.of(context)!.settings.arguments as Flowers;
@@ -257,19 +233,41 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(flowers.flowerName),
-      ),
-      body: Padding(
+        ),
+        body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Container(  
+                    padding: const EdgeInsets.only(left: 150.0, top: 20.0),  
+                  ),
+                  const Image(
+                    image: AssetImage("assets/images/update.png"),
+                    alignment: Alignment.topRight,
+                    height: 200,
+                    width: 250,
+                  ),
+                  
+                  Text(
+                    "Update Flower",
+                    style: GoogleFonts.lato(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w900,
+                    )
+                   
+                  ), 
+                  Container(  
+                    padding: const EdgeInsets.only(left: 150.0, top: 20.0),  
+                  ), 
                   TextFormField(  
                     controller: _controller,
                     decoration: InputDecoration( 
                        border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
                     ),
-                    fillColor: Colors.white,
+                    fillColor: const Color.fromARGB(255, 159, 223, 207),
                     filled: true,
                     
                     labelText: flowers.flowerName,  
@@ -284,7 +282,7 @@ class DetailScreen extends StatelessWidget {
                        border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
                     ),
-                    fillColor: Colors.white,
+                    fillColor: const Color.fromARGB(255, 159, 223, 207),
                     filled: true,
                     
                     labelText: flowers.commonNames,  
@@ -299,7 +297,7 @@ class DetailScreen extends StatelessWidget {
                        border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
                     ),
-                    fillColor: Colors.white,
+                    fillColor: const Color.fromARGB(255, 159, 223, 207),
                     filled: true,
                     
                     labelText: flowers.description,  
@@ -315,8 +313,8 @@ class DetailScreen extends StatelessWidget {
                           updateFlower(flowers.flowerName,_commonNames.text,_description.text);
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: const Color.fromARGB(255, 244, 54, 143),
-                        onPrimary: Colors.white,
+                        primary: const Color.fromARGB(255, 228, 198, 27),
+                        onPrimary: Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32.0),
                         ),

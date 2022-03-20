@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/screens/Flower/ViewFlowers.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -57,7 +58,7 @@ class Flowers {
 }
 
 class AddFlower extends StatelessWidget {
-  static const String routeName='/';
+  static const String routeName='/addFlower';
   const AddFlower({ Key? key }) : super(key: key);
 
   @override
@@ -72,16 +73,16 @@ class AddFlower extends StatelessWidget {
       home: Scaffold(  
         appBar: AppBar(  
           title: const Text(appTitle),  
-        //   actions: [
-        //   IconButton(
-        //     onPressed: (){
-        //       Navigator.of(context).pushNamed(Add.routeName);
-        //     }, 
-        //     icon: const Icon(
-        //       Icons.home,
-        //       ),
-        //   ),
-        // ],
+          actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.of(context).pushNamed(ViewFlowers.routeName);
+            }, 
+            icon: const Icon(
+              Icons.arrow_back,
+              ),
+          ),
+        ],
         ),  
         body: const MyCustomForm(),  
       ),  
@@ -205,7 +206,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                       {
                         setState(() {
                           addFlower(_controller.text,_commonNames.text,_description.text);
-                          
                         });
                       },
                       style: ElevatedButton.styleFrom(
