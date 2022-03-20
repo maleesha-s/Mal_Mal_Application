@@ -187,11 +187,13 @@ class _ViewState extends State<ViewFlowers> {
                         child: const Text('Delete Data'),
                         onPressed: () {
                           setState(() {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewFlowers()));
                             futurePost = deleteFlower(snapshot.data![index].flowerName) as Future<List<Flowers>>;
+                            
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 240, 97, 97),
+                        primary: const Color.fromARGB(255, 240, 97, 97),
                         onPrimary: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32.0),
@@ -310,7 +312,10 @@ class DetailScreen extends StatelessWidget {
                       child: const Text("Update Flower"),
                       onPressed: ()
                       {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewFlowers()));
                           updateFlower(flowers.flowerName,_commonNames.text,_description.text);
+                          
+                          
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 228, 198, 27),
@@ -358,7 +363,6 @@ Future<Flowers> updateFlower(String flowerName, String commonNames, String descr
     );
     
     return Flowers.fromMap(jsonDecode(response.body));
-    
   } else {
     // If the server did not return a 201 CREATED response,
     // then throw an exception.

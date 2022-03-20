@@ -20,6 +20,7 @@ Future<Flowers> addFlower(String flowerName, String commonNames, String descript
   );
   
   if (response.statusCode == 200) {
+    
     // If the server did return a 200 CREATED response,
     // then parse the JSON.
     Fluttertoast.showToast(
@@ -103,6 +104,7 @@ class MyCustomFormState extends State<MyCustomForm> {
   final TextEditingController _controller = TextEditingController();
   final TextEditingController _commonNames = TextEditingController();
   final TextEditingController _description = TextEditingController();
+  late Flowers res;
   
   @override  
   Widget build(BuildContext context) {  
@@ -203,10 +205,21 @@ class MyCustomFormState extends State<MyCustomForm> {
                   child: ElevatedButton(
                       child: const Text("Add Flower"),
                       onPressed: ()
+                      
                       {
                         setState(() {
-                          addFlower(_controller.text,_commonNames.text,_description.text);
+                          if(_commonNames.text.isEmpty){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Cannot leave empty fields')),
+                            );
+                          }else{
+                            addFlower(_controller.text,_commonNames.text,_description.text);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewFlowers()));
+                          }
+                          
+                         
                         });
+                        // Navigator.of(context).pushNamed(ViewFlowers.routeName);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 244, 54, 143),

@@ -13,7 +13,7 @@ const flowerSchema = new Schema({
     },
     commonNames : {
         type : String,
-        required: false
+        required: true
     },
     description : {
         type : String,
