@@ -31,25 +31,7 @@ router.route("/allFlowers").get((req,res)=>{
     })
 })
 
-//update flower
-router.route("/update/:id").put(async (req, res)=>{
-    let flowerId = req.params.id;
-    const {flowerName, commonNames, description} = req.body;
 
-    const updateFlower = {
-        flowerName,
-        commonNames,
-        description
-    }
-    const update = await Flower.findByIdAndUpdate(flowerId, updateFlower).then(()=> {
-        res.status(200).send({status: "FLower updated"})
-    }).catch((err)=>{
-        console.log(err);
-        res.status(500).send({status: "Error with updating data"});
-
-    })
-
-})
 
 //delete Flower
 router.route("/delete/:id").delete(async (req, res)=>{
@@ -60,6 +42,53 @@ router.route("/delete/:id").delete(async (req, res)=>{
         console.log(err.message);
         res.status(500).send({status: "Error with delete ", flowererror: err.message});
     })
+})
+
+//get flower by name
+router.route("/get/:flowerName").get(async (req, res)=>{
+    let flowerName = req.params.flowerName;
+    Flower.find({flowerName : flowerName}).then((flowers)=>{
+        res.json(flowers)
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
+//delete flower by flower name
+router.route("/deleteName/:flowerName").delete(async (req, res)=>{
+    let flowerName= req.params.flowerName;
+    await Flower.find({flowerName : flowerName}).then((flowers)=>{
+        Flower.findByIdAndDelete(flowers[0]._id).then((flowers)=>{
+                res.status(200).send({status: "Flower Deleted Successfully"});
+            }).catch((err)=>{
+                console.log(err.message);
+                res.status(500).send({status: "Error with delete ", flowererror: err.message});
+            })
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
+//update flower by flower name
+router.route("/updateFlower/:flowerName").put(async (req, res)=>{
+    let flowerName= req.params.flowerName;
+    const {commonNames, description} = req.body;
+
+    const updateFlower = {
+        commonNames,
+        description
+    }
+    await Flower.find({flowerName : flowerName}).then((flowers)=> {
+        const update = Flower.findByIdAndUpdate(flowers[0]._id, updateFlower).then(() => {
+            res.status(200).send({status: "FLower updated"})
+        }).catch((err) => {
+            console.log(err);
+            res.status(500).send({status: "Error with updating data"});
+
+        })
+    })
+
+
 })
 
 
