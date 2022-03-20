@@ -1,8 +1,67 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/screens/Flower/ViewFlowers.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+
+// Add Flower
+Future<Flowers> addFlower(String flowerName, String commonNames, String description) async {
+  
+  final response = await http.post(
+    Uri.parse('http://localhost:8070/flowers/addFlower'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'flowerName': flowerName,
+      'commonNames': commonNames,
+      'description': description
+    }),
+  );
+  
+  if (response.statusCode == 200) {
+    
+    // If the server did return a 200 CREATED response,
+    // then parse the JSON.
+    Fluttertoast.showToast(
+        msg: "Flower Added Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+    );
+    
+    return Flowers.fromJson(jsonDecode(response.body));
+    
+  } else {
+    // If the server did not return a 201 CREATED response,
+    // then throw an exception.
+    throw Exception('Failed to create flower.');
+  }
+}
+
+//Flower class
+class Flowers {
+  final String flowerName;
+  final String commonNames;
+  final String description;
+
+  const Flowers({required this.flowerName, required this.commonNames, required this.description});
+
+  factory Flowers.fromJson(Map<String, dynamic> json) {
+    return Flowers(
+      flowerName: json['flowerName'],
+      commonNames: json['commonNames'],
+      description: json['description'],
+    );
+  }
+}
 
 class AddFlower extends StatelessWidget {
-  static const String routeName='/';
+  static const String routeName='/addFlower';
   const AddFlower({ Key? key }) : super(key: key);
 
   @override
@@ -20,10 +79,10 @@ class AddFlower extends StatelessWidget {
           actions: [
           IconButton(
             onPressed: (){
-              // Navigator.of(context).pushNamed(DataTile.routeName);
+              Navigator.of(context).pushNamed(ViewFlowers.routeName);
             }, 
             icon: const Icon(
-              Icons.home,
+              Icons.arrow_back,
               ),
           ),
         ],
@@ -42,10 +101,12 @@ class MyCustomForm extends StatefulWidget {
     return MyCustomFormState();  
   }  
 }  
-// Create a corresponding State class. This class holds data related to the form.  
+ 
 class MyCustomFormState extends State<MyCustomForm> {  
-  // Create a global key that uniquely identifies the Form widget  
-  // and allows validation of the form.  
+  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _commonNames = TextEditingController();
+  final TextEditingController _description = TextEditingController();
+  late Flowers res;
   
   @override  
   Widget build(BuildContext context) {  
@@ -92,6 +153,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     padding: const EdgeInsets.only(left: 150.0, top: 20.0),  
                   ), 
                   TextFormField(  
+                    controller: _controller,
                     decoration: InputDecoration( 
                        border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
@@ -108,6 +170,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   ), 
 
                   TextFormField(  
+                    controller: _commonNames,
                     decoration: InputDecoration( 
                        border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
@@ -124,6 +187,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   ),  
                     
                    TextFormField(  
+                    controller: _description,
                     decoration: InputDecoration( 
                        border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(50),
@@ -142,7 +206,23 @@ class MyCustomFormState extends State<MyCustomForm> {
                   alignment: Alignment.center,
                   child: ElevatedButton(
                       child: const Text("Add Flower"),
-                      onPressed: (){},
+                      onPressed: ()
+                      
+                      {
+                        setState(() {
+                          //Check empty fields
+                          if(_commonNames.text.isEmpty){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Cannot leave empty fields')),
+                            );
+                          }else{
+                            addFlower(_controller.text,_commonNames.text,_description.text);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewFlowers()));
+                          }
+                          
+                         
+                        });
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 244, 54, 143),
                         onPrimary: Colors.white,
@@ -163,5 +243,5 @@ class MyCustomFormState extends State<MyCustomForm> {
       ),
       
     );
-  }  
+  } 
 }
