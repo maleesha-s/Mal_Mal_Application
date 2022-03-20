@@ -1,8 +1,6 @@
 const router = require("express").Router();
 let Flower= require("../models/Flowers");
-// const path = require('path');
-// const multer = require('multer');
-// const fs = require('fs');
+
 
 //add a new Flower
 router.route("/addFlower").post((req, res) => {

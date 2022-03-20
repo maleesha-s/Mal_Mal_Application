@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
+// Add Flower
 Future<Flowers> addFlower(String flowerName, String commonNames, String description) async {
   
   final response = await http.post(
@@ -42,6 +43,7 @@ Future<Flowers> addFlower(String flowerName, String commonNames, String descript
   }
 }
 
+//Flower class
 class Flowers {
   final String flowerName;
   final String commonNames;
@@ -208,6 +210,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                       
                       {
                         setState(() {
+                          //Check empty fields
                           if(_commonNames.text.isEmpty){
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Cannot leave empty fields')),
@@ -219,7 +222,6 @@ class MyCustomFormState extends State<MyCustomForm> {
                           
                          
                         });
-                        // Navigator.of(context).pushNamed(ViewFlowers.routeName);
                       },
                       style: ElevatedButton.styleFrom(
                         primary: const Color.fromARGB(255, 244, 54, 143),

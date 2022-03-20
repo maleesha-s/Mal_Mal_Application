@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 List<Flowers> postFromJson(String str) =>
     List<Flowers>.from(json.decode(str).map((x) => Flowers.fromMap(x)));
 
+// Flower class
 class Flowers {
   Flowers({
     required this.flowerName,
@@ -27,6 +28,7 @@ class Flowers {
       );
 }
 
+//Fetch flower details
 Future<List<Flowers>> fetchFlowers() async {
   final response =
       await http.get(Uri.parse('http://localhost:8070/flowers/allFlowers'));
@@ -40,6 +42,7 @@ Future<List<Flowers>> fetchFlowers() async {
   }
 }
 
+//delete flowers
 Future<http.Response> deleteFlower(String flowerName) async {
        final http.Response response = await http.delete(        
        Uri.parse
@@ -154,6 +157,7 @@ class _ViewState extends State<ViewFlowers> {
                        Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                      // Update screen
                       ElevatedButton(
                         child: const Text('Update Data'),
                         onPressed: () {
@@ -170,7 +174,7 @@ class _ViewState extends State<ViewFlowers> {
                         );
                         },
                         style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 230, 196, 49),
+                        primary: const Color.fromARGB(255, 230, 196, 49),
                         onPrimary: Colors.black,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32.0),
@@ -182,7 +186,8 @@ class _ViewState extends State<ViewFlowers> {
                       Container(  
                         padding: const EdgeInsets.only(left: 150.0, top: 20.0),  
                       ),
-
+                      
+                      // Delete button
                       ElevatedButton(
                         child: const Text('Delete Data'),
                         onPressed: () {
