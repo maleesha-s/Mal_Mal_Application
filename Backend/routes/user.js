@@ -75,14 +75,24 @@ router.route("/update/:userName").put(async (req, res)=>{
 })
 
 //delete User
-router.route("/delete/:id").delete(async (req, res)=>{
+router.route("/delete/:userName").delete(async (req, res)=>{
     let userName= req.params.userName;
-    await User.findByIdAndDelete(userName).then(()=>{
-        res.status(200).send({status: "User Deleted Successfully"});
+    let id = 0;
+    await User.find({userName:userName}).then((user)=>{
+        id = user[0].id;
+        console.log(id)
     }).catch((err)=>{
-        console.log(err.message);
-        res.status(500).send({status: "Error with delete "+ err.message});
+        console.log(err);
     })
+    if(id){
+        const update = await User.findByIdAndDelete(id).then(()=> {
+            res.status(200).send({status: "User Deleted!"})
+        }).catch((err)=>{
+            console.log(err);
+            res.status(500).send({status: "Error with deleting user"});
+    
+        })
+    }
 })
 
 

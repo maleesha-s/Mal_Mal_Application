@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: Profile.routeName,
+      initialRoute: Login.routeName,
       routes: {
         Login.routeName:(context) => const Login(),
-        Profile.routeName:(context) => const Profile(),
+        Profile.routeName:(context) => const Profile(''),
         Signup.routeName:(context) => const Signup()
       },
 

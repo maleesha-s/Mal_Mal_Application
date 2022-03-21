@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_mobile/screens/Login/login.dart';
 import 'package:http/http.dart' as http;
-import '../profile.dart';
 //user class
 class User{
   final String userName;
@@ -24,64 +23,108 @@ class User{
   }
 }
 
-//http request
-Future<User> fetchUser() async{
+//http request for get user details
+Future<User> fetchUser(String uName) async{
   final response = await http
-      .get(Uri.parse('http://localhost:8070/users/kithmini_l'));
+      .get(Uri.parse('http://localhost:8070/users/$uName'));
 
     if (response.statusCode == 200) {
       final String content =  utf8.decode(response.body.runes.toList());
       final List data = jsonDecode(content);
       return User.fromJson(data[0]);
     } else {
-      throw Exception('Failed to load album');
+      Fluttertoast.showToast(
+          msg: "failed to fetch!",
+          //toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      throw Exception('Failed to load user');
     }
 }
 class Body extends StatefulWidget {
-  const Body({ Key? key }) : super(key: key);
+  final String uName;
+  // ignore: use_key_in_widget_constructors
+  const Body(this.uName);
 
   @override
   State<StatefulWidget> createState() {
     return _BodyState();
   }
 }
-Future<bool> UpdateUser(String userName, String firstName, String lastName, String password) async{
-  final response = await http.put(
-    Uri.parse('http://localhost:8070/users/update/$userName'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'firstName': firstName,
-      'lastName':lastName,
-      'password':password
-    }),
-  );
-  if (response.statusCode == 200) {
-    Fluttertoast.showToast(
-        msg: "User Successfully Added!",
-        //toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-    );
-    return true;
-  } else {
-    throw Exception('Failed to add this user.');
-  }
-}
+
 class _BodyState extends State<Body> {
+  
   late Future<User> futureUser;
   bool res =false;
+
+  // ignore: non_constant_identifier_names
+  Future UpdateUser(String userName, String firstName, String lastName, String password) async{
+    final response = await http.put(
+      Uri.parse('http://localhost:8070/users/update/$userName'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'firstName': firstName,
+        'lastName':lastName,
+        'password':password
+      }),
+    );
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+          msg: "Details Successfully Updated!",
+          //toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      Navigator.of(context).pushNamed(Login.routeName);
+    } else {
+      throw Exception('Failed to add this user.');
+    }
+  }
+  // ignore: non_constant_identifier_names
+  Future DeleteUser(String userName) async{
+    final response = await http.delete(
+      Uri.parse('http://localhost:8070/users/delete/$userName'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+      }),
+    );
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+          msg: "Account Successfully Deleted!",
+          //toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+      Navigator.of(context).pushNamed(Login.routeName);
+    } else {
+      throw Exception('Failed to add this user.');
+    }
+  }
+  void logOut(){
+      Navigator.of(context).pushNamed(Login.routeName);
+  }
   @override
   void initState() {
     super.initState();
-    futureUser = fetchUser();
+    futureUser = fetchUser(widget.uName);
   }
   @override
   Widget build(BuildContext context) {
+    widget.uName;
     final TextEditingController _controllerFirstName = TextEditingController();
     final TextEditingController _controllerLastName = TextEditingController();
     final TextEditingController _controllerUserName = TextEditingController();
@@ -90,8 +133,24 @@ class _BodyState extends State<Body> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Profile Details"),
+          title: Stack(
+            children: <Widget> [
+              const Align(
+                alignment: Alignment.topLeft,
+                child:Text("Profile Details")
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child:ElevatedButton(
+                  onPressed: logOut,
+                  child: const Icon(Icons.logout),
+                ), 
+              )
+              
+            ],
+          )
         ),
+
         body: Center(
           child: FutureBuilder<User>(
             future: futureUser,
@@ -125,14 +184,31 @@ class _BodyState extends State<Body> {
                       controller: _controllerLastName,
                       decoration: const InputDecoration(hintText: 'First Name : ',label: Text("Last Name"),contentPadding:EdgeInsets.fromLTRB(5, 12, 12, 12) ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          res = UpdateUser(_controllerUserName.text,_controllerFirstName.text, _controllerLastName.text, _controllerPassword.text) as bool;
-                          res == true ? Navigator.of(context).pushNamed(Profile.routeName) : Navigator.of(context).pushNamed(Login.routeName);
-                        });
-                      },
-                      child: const Text('Create Data'),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child:FloatingActionButton(
+                        onPressed: ()=> UpdateUser(_controllerUserName.text,_controllerFirstName.text, _controllerLastName.text, _controllerPassword.text),
+                        child: const Icon(Icons.update),
+                      )
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child:ElevatedButton(
+                        onPressed: ()=> DeleteUser(_controllerUserName.text),
+                        style: ElevatedButton.styleFrom(
+                          primary:Colors.black,
+                          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                        ),
+                        child: const Text('Deactivate Account',style: TextStyle(
+                          color: Colors.red
+                        ),),
+                      ), 
                     ),
                   ]
                 );

@@ -1,12 +1,10 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:frontend_mobile/screens/Profile/profile.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_svg/svg.dart';
 import 'package:frontend_mobile/screens/SignUp/signup.dart';
+import '../../Profile/profile.dart';
 import 'background.dart';
 
 class User{
@@ -29,7 +27,7 @@ class User{
 
 
 class Body extends StatefulWidget {
-  const Body({ Key? key }) : super(key: key);
+  const Body({ Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -41,52 +39,41 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final TextEditingController _controllerUserName = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+
   void userLogin(String userName, String password) async {
-    // final response = await http.post(
-    //   Uri.parse('http://localhost:8070/users/login'),
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //   },
-    //   body: jsonEncode(<String, String>{
-    //     'userName': userName,
-    //     'password':password
-    //   }),
-    // );
-    // if (response.statusCode == 200) {
-    //   dynamic data = jsonDecode(response.body);
-    //   Fluttertoast.showToast(
-    //       msg:(data![0].userName),
-    //       toastLength: Toast.LENGTH_LONG,
-    //       gravity: ToastGravity.CENTER,
-    //       timeInSecForIosWeb: 5,
-    //       backgroundColor: Colors.red,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0
-    //   );
-    //   return User.fromJson(jsonDecode(response.body));
-    // } else {
-    //   throw Exception('Failed to get this user.');
-    // }
-    if(_controllerUserName.text=="Maleesha_s" && _controllerPassword.text == "16924"){
+    final response = await http.post(
+      Uri.parse('http://localhost:8070/users/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'userName': _controllerUserName.text,
+        'password':_controllerPassword.text
+      }),
+    );
+    final String content =  utf8.decode(response.body.runes.toList());
+    final List data = jsonDecode(content);
+    final List dList =  data.map((e) => User.fromJson(e)).toList();
+    if(dList.isNotEmpty){
       Fluttertoast.showToast(
-          msg:"Login Successfully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 5,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
+        msg:("${dList[0].userName} login successfully!" ),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 5,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
       );
-      Navigator.of(context).pushNamed(Profile.routeName);
+      Navigator.of(context).pushNamed(Profile.routeName,arguments: {userName:dList[0].userName});
     }else{
       Fluttertoast.showToast(
-          msg:"Login Failed!",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 5,
-          backgroundColor: const Color.fromARGB(255, 54, 244, 76),
-          textColor: Colors.white,
-          fontSize: 16.0
+        msg:("${_controllerUserName.text} login faild!" ),
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 5,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
       );
     }
   }
@@ -116,7 +103,7 @@ class _BodyState extends State<Body> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                fillColor: Color.fromARGB(255, 217, 186, 247),
+                fillColor: const Color.fromARGB(255, 217, 186, 247),
                 filled: true,
                 hintText: 'Username',  
                 labelText: 'Username',
@@ -152,6 +139,9 @@ class _BodyState extends State<Body> {
             //     Icons.app_registration_rounded,
             //     ),
             // ),
+            const SizedBox(
+              height: 8,
+            ),
             ElevatedButton(
               onPressed: () {
                 setState(() {
@@ -161,7 +151,19 @@ class _BodyState extends State<Body> {
               },
               child: const Text('Login'),
             ),
-
+            const SizedBox(
+              height: 5,
+            ),
+            ElevatedButton(
+              onPressed: ()=> Navigator.of(context).pushNamed(Signup.routeName),
+              style: ElevatedButton.styleFrom(
+                primary:const Color.fromARGB(255, 166, 124, 235),
+                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              ),
+              child: const Text('Create New Account',style: TextStyle(
+                color: Colors.white
+              ),),
+            )
           ]
         )
       ),
