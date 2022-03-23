@@ -31,7 +31,6 @@ Future<User> fetchUser(String uName) async{
     if (response.statusCode == 200) {
       final String content =  utf8.decode(response.body.runes.toList());
       dynamic data = jsonDecode(content);
-      print(User.fromJson(data).userName);
       return User.fromJson(data);
     } else {
       Fluttertoast.showToast(

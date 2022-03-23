@@ -81,18 +81,12 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              "LOGIN",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: size.height * 0.03),
             SvgPicture.asset(
               "assets/images/login.svg",
               height: size.height * 0.35,
@@ -104,11 +98,11 @@ class _BodyState extends State<Body> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                fillColor: const Color.fromARGB(255, 217, 186, 247),
+                fillColor: const Color.fromARGB(255, 255, 255, 255),
                 filled: true,
                 hintText: 'Username',  
                 labelText: 'Username',
-                
+                icon: const Icon(Icons.verified_user)
               ),  
               
               style: const TextStyle(
@@ -120,16 +114,19 @@ class _BodyState extends State<Body> {
             ),
             SizedBox(height: size.height * 0.03),
             TextFormField(
+              autofocus: false,
+              obscureText: true,
+              // validator: (value)=>value.isEmpty?'Please enter password':null,
               controller: _controllerPassword,
               decoration: InputDecoration( 
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50),
                 ),
-                fillColor: const Color(0xFF6F35A5),
+                fillColor: const Color.fromARGB(255, 255, 255, 255),
                 filled: true,
-                
                 hintText: 'Password',  
                 labelText: 'Password',  
+                icon: const Icon(Icons.lock)
               ),  
             ),
             // IconButton(

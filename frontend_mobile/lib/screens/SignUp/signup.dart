@@ -7,8 +7,11 @@ class Signup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Body(),
+    return  Scaffold(
+      appBar: AppBar(
+        title: const Text('Registration'),
+      ),
+      body: const Body(),
     );
   }
 }
