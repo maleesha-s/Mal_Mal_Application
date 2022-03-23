@@ -28,10 +28,11 @@ router.route("/login").post((req,res)=>{
     })
 });
 //get one user
-router.route("/:userName").get((req,res)=>{
+router.route("/getUser/:userName").get((req,res)=>{
     let userName = req.params.userName;
-    User.find({userName:userName}).then((user =>{
+    User.findOne({userName:userName}).then((user =>{
         res.json(user);
+        
     })).catch((err)=>{
         console.log(err);
     })

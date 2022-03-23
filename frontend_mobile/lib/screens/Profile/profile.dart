@@ -26,12 +26,13 @@ class User{
 //http request for get user details
 Future<User> fetchUser(String uName) async{
   final response = await http
-      .get(Uri.parse('http://localhost:8070/users/$uName'));
+      .get(Uri.parse('http://localhost:8070/users/getUser/$uName'));
 
     if (response.statusCode == 200) {
       final String content =  utf8.decode(response.body.runes.toList());
-      final List data = jsonDecode(content);
-      return User.fromJson(data[0]);
+      dynamic data = jsonDecode(content);
+      print(User.fromJson(data).userName);
+      return User.fromJson(data);
     } else {
       Fluttertoast.showToast(
           msg: "failed to fetch!",
@@ -42,15 +43,13 @@ Future<User> fetchUser(String uName) async{
           textColor: Colors.white,
           fontSize: 16.0
       );
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load user');
     }
 }
 class Profile extends StatefulWidget {
   static const String routeName='/profile';
-  final String uName;
-  // ignore: use_key_in_widget_constructors
-  const Profile(this.uName);
-
+  final String? uName;
+  const Profile({ Key? key, required this.uName, }) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _BodyState();
@@ -58,12 +57,9 @@ class Profile extends StatefulWidget {
 }
 
 class _BodyState extends State<Profile> {
-  
   late Future<User> futureUser;
   bool res =false;
-
-  // ignore: non_constant_identifier_names
-  Future UpdateUser(String userName, String firstName, String lastName, String password) async{
+  Future updateUser(String userName, String firstName, String lastName, String password) async{
     final response = await http.put(
       Uri.parse('http://localhost:8070/users/update/$userName'),
       headers: <String, String>{
@@ -90,8 +86,7 @@ class _BodyState extends State<Profile> {
       throw Exception('Failed to add this user.');
     }
   }
-  // ignore: non_constant_identifier_names
-  Future DeleteUser(String userName) async{
+  Future deleteUser(String userName) async{
     final response = await http.delete(
       Uri.parse('http://localhost:8070/users/delete/$userName'),
       headers: <String, String>{
@@ -121,11 +116,10 @@ class _BodyState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    futureUser = fetchUser(widget.uName);
+    futureUser = fetchUser(widget.uName ?? '');
   }
   @override
   Widget build(BuildContext context) {
-    widget.uName;
     final TextEditingController _controllerFirstName = TextEditingController();
     final TextEditingController _controllerLastName = TextEditingController();
     final TextEditingController _controllerUserName = TextEditingController();
@@ -191,7 +185,7 @@ class _BodyState extends State<Profile> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child:FloatingActionButton(
-                        onPressed: ()=> UpdateUser(_controllerUserName.text,_controllerFirstName.text, _controllerLastName.text, _controllerPassword.text),
+                        onPressed: ()=> updateUser(_controllerUserName.text,_controllerFirstName.text, _controllerLastName.text, _controllerPassword.text),
                         child: const Icon(Icons.update),
                       )
                     ),
@@ -201,7 +195,7 @@ class _BodyState extends State<Profile> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child:ElevatedButton(
-                        onPressed: ()=> DeleteUser(_controllerUserName.text),
+                        onPressed: ()=> deleteUser(_controllerUserName.text),
                         style: ElevatedButton.styleFrom(
                           primary:Colors.black,
                           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),

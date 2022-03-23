@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:frontend_mobile/screens/Profile/profile.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_svg/svg.dart';
 import 'package:frontend_mobile/screens/SignUp/signup.dart';
-import '../../Profile/profile.dart';
 import 'background.dart';
 
 class User{
@@ -52,11 +52,10 @@ class _BodyState extends State<Body> {
       }),
     );
     final String content =  utf8.decode(response.body.runes.toList());
-    final List data = jsonDecode(content);
-    final List dList =  data.map((e) => User.fromJson(e)).toList();
-    if(dList.isNotEmpty){
+    dynamic data = jsonDecode(content);
+    if(data.isNotEmpty){
       Fluttertoast.showToast(
-        msg:("${dList[0].userName} login successfully!" ),
+        msg:("${User.fromJson(data[0]).userName} login successfully!" ),
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 5,
@@ -64,7 +63,9 @@ class _BodyState extends State<Body> {
         textColor: Colors.white,
         fontSize: 16.0
       );
-      Navigator.of(context).pushNamed(Profile.routeName,arguments: {userName:dList[0].userName});
+      Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Profile(uName: User.fromJson(data[0]).userName)));
+
     }else{
       Fluttertoast.showToast(
         msg:("${_controllerUserName.text} login faild!" ),

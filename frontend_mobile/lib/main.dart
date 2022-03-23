@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
       initialRoute: Login.routeName,
       routes: {
         Login.routeName:(context) => const Login(),
-        Profile.routeName:(context) => const Profile(''),
         Signup.routeName:(context) => const Signup()
       },
 
