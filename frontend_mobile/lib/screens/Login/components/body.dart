@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_mobile/screens/Profile/profile.dart';
+import 'package:frontend_mobile/screens/Welcome/welcome.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_svg/svg.dart';
 import 'package:frontend_mobile/screens/SignUp/signup.dart';
@@ -56,7 +57,7 @@ class _BodyState extends State<Body> {
     if(data.isNotEmpty){
       Fluttertoast.showToast(
         msg:("${User.fromJson(data[0]).userName} login successfully!" ),
-        toastLength: Toast.LENGTH_LONG,
+        toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 5,
         backgroundColor: Colors.red,
@@ -64,12 +65,12 @@ class _BodyState extends State<Body> {
         fontSize: 16.0
       );
       Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Profile(uName: User.fromJson(data[0]).userName)));
+        context, MaterialPageRoute(builder: (context) => Welcome(uName: User.fromJson(data[0]).userName)));
 
     }else{
       Fluttertoast.showToast(
         msg:("${_controllerUserName.text} login faild!" ),
-        toastLength: Toast.LENGTH_LONG,
+        toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 5,
         backgroundColor: Colors.red,

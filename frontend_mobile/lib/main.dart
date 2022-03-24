@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/SignUp/signup.dart';
 import 'package:frontend_mobile/screens/Login/login.dart';
+import 'package:frontend_mobile/screens/Welcome/welcome.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,10 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: Login.routeName,
+      initialRoute: Welcome.routeName,
       routes: {
         Login.routeName:(context) => const Login(),
-        Signup.routeName:(context) => const Signup()
+        Signup.routeName:(context) => const Signup(),
+        Welcome.routeName:(context) => const Welcome()
       },
 
     );
