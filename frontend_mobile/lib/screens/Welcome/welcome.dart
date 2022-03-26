@@ -13,7 +13,7 @@ class Welcome extends StatefulWidget {
 
 
 class WelcomeBody extends State<Welcome> {
-
+  // bottom nav bar
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -68,7 +68,7 @@ class WelcomeBody extends State<Welcome> {
             ),
             SizedBox(height: size.height * 0.03),
             Align(
-              child:Image.asset('assets/images/flower1.jpg',height:150,)
+              child:Image.asset('assets/images/flower1.jpg',height:150,width: 250,)
             ),
             SizedBox(height: size.height * 0.03),
             const Align(
@@ -78,6 +78,7 @@ class WelcomeBody extends State<Welcome> {
                   ),
               ),
             ),
+            SizedBox(height: size.height * 0.03),
             const Align(
               child: Text(
                 'Fertilizers',
@@ -88,16 +89,17 @@ class WelcomeBody extends State<Welcome> {
             ),
             SizedBox(height: size.height * 0.03),
             Align(
-              child:Image.asset('assets/images/fertilizing-flowers.jpg',height:150,)
+              child:Image.asset('assets/images/fertilizing-flowers.jpg',height:150,width: 250,)
             ),
             SizedBox(height: size.height * 0.03),
             const Align(
               child: Text(
-                'Will be able to find 1000 of flowers here.',
+                'Will be able to find 1000 of fertilizers here.',
                   style: TextStyle(fontWeight: FontWeight.bold,
                   ),
               ),
             ),
+            SizedBox(height: size.height * 0.03),
             const Align(
               child: Text(
                 'Diseases',
@@ -108,16 +110,17 @@ class WelcomeBody extends State<Welcome> {
             ),
             SizedBox(height: size.height * 0.03),
             Align(
-              child:Image.asset('assets/images/Diseases.jpg',height:150,)
+              child:Image.asset('assets/images/Diseases.jpg',height:150,width: 250,)
             ),
-            SizedBox(height: size.height * 0.03),
             const Align(
+              alignment: Alignment.center,
               child: Text(
-                'Will be able to find 1000 of flowers here.',
+                'Click to learn about diseases here.',
                   style: TextStyle(fontWeight: FontWeight.bold,
                   ),
               ),
-            ),//f
+            ),
+            SizedBox(height: size.height * 0.03),
            ],
          ),
         ),
