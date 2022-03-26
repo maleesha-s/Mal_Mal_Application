@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_mobile/screens/Flower/AddFlower.dart';
+import 'package:frontend_mobile/screens/Welcome/welcome.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
@@ -71,8 +72,8 @@ class _ViewState extends State<ViewFlowers> {
     void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if(_selectedIndex == 1){
-        Navigator.of(context).pushNamed(ViewFlowers.routeName);
+      if(_selectedIndex == 0){
+        Navigator.of(context).pushNamed(Welcome.routeName);
       }else if(_selectedIndex == 2){
         //route --> Jonty
       }else if(_selectedIndex == 3){
@@ -178,7 +179,7 @@ class _ViewState extends State<ViewFlowers> {
                     children: <Widget>[
                       // Update screen
                       ElevatedButton(
-                        child: const Text('Update Data'),
+                        child: const Text('View Data'),
                         onPressed: () {
                           Navigator.push(
                           context,
@@ -366,6 +367,7 @@ class DetailScreen extends StatelessWidget {
                       {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewFlowers()));
                           updateFlower(flowers.flowerName,_commonNames.text,_description.text);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ViewFlowers()));
                           
                           
                       },
