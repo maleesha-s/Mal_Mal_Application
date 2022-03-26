@@ -13,6 +13,7 @@ class Welcome extends StatefulWidget {
 
 
 class WelcomeBody extends State<Welcome> {
+
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
@@ -29,6 +30,7 @@ class WelcomeBody extends State<Welcome> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
