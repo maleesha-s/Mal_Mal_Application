@@ -64,7 +64,26 @@ class ViewFlowers extends StatefulWidget {
 }
 
 class _ViewState extends State<ViewFlowers> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+    TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+    
+    void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if(_selectedIndex == 1){
+        Navigator.of(context).pushNamed(ViewFlowers.routeName);
+      }else if(_selectedIndex == 2){
+        //route --> Jonty
+      }else if(_selectedIndex == 3){
+        //route --> Janith
+      }
+    });
+  }
+  
   late Future<List<Flowers>> futurePost;
+
+  
 
   @override
   void initState() {
@@ -221,6 +240,34 @@ class _ViewState extends State<ViewFlowers> {
             }
           },
         ),
+        bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Flowers',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'Fertilizers',
+            backgroundColor: Colors.purple,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Disease',
+            backgroundColor: Colors.pink,
+            
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
       ),
     );
     
