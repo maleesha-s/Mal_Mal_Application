@@ -13,7 +13,7 @@ class Welcome extends StatefulWidget {
 
 
 class WelcomeBody extends State<Welcome> {
-  // bottom nav bar
+
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
     TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
