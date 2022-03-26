@@ -99,7 +99,7 @@ class _BodyState extends State<Body> {
                   icon: const Icon(Icons.supervised_user_circle_rounded)
                 ), 
               ),
-
+              
               SizedBox(height: size.height * 0.03),
 
               TextFormField(

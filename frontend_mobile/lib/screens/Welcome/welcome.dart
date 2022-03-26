@@ -30,9 +30,10 @@ class WelcomeBody extends State<Welcome> {
       }
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Stack(
@@ -53,7 +54,73 @@ class WelcomeBody extends State<Welcome> {
             ],
           )
       ),
-      body:const Text("data"),
+      body: SingleChildScrollView(
+         child: Column(
+           children: [
+            SizedBox(height: size.height * 0.03),
+            const Align(
+              child: Text(
+                'Flowers',
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                    fontSize: 30
+                  ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.03),
+            Align(
+              child:Image.asset('assets/images/flower1.jpg',height:150,)
+            ),
+            SizedBox(height: size.height * 0.03),
+            const Align(
+              child: Text(
+                'Will be able to find 1000 of flowers here.',
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                  ),
+              ),
+            ),
+            const Align(
+              child: Text(
+                'Fertilizers',
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                    fontSize: 30
+                  ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.03),
+            Align(
+              child:Image.asset('assets/images/fertilizing-flowers.jpg',height:150,)
+            ),
+            SizedBox(height: size.height * 0.03),
+            const Align(
+              child: Text(
+                'Will be able to find 1000 of flowers here.',
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                  ),
+              ),
+            ),
+            const Align(
+              child: Text(
+                'Diseases',
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                    fontSize: 30
+                  ),
+              ),
+            ),
+            SizedBox(height: size.height * 0.03),
+            Align(
+              child:Image.asset('assets/images/Diseases.jpg',height:150,)
+            ),
+            SizedBox(height: size.height * 0.03),
+            const Align(
+              child: Text(
+                'Will be able to find 1000 of flowers here.',
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                  ),
+              ),
+            ),//f
+           ],
+         ),
+        ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -62,17 +129,17 @@ class WelcomeBody extends State<Welcome> {
             backgroundColor: Colors.blue,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
+            icon: Icon(Icons.local_florist_rounded),
             label: 'Flowers',
             backgroundColor: Colors.green,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
+            icon: Icon(Icons.volunteer_activism_rounded ),
             label: 'Fertilizers',
             backgroundColor: Colors.purple,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: Icon(Icons.coronavirus),
             label: 'Disease',
             backgroundColor: Colors.pink,
             

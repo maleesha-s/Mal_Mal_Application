@@ -18,7 +18,25 @@ router.route("/addUser").post((req, res) => {
         console.log(err);
     })
 })
-
+//login
+router.route("/login").post((req,res)=>{
+    const {userName,password} = req.body;
+    User.find({userName:userName,password:password}).then((user =>{
+        res.json(user);
+    })).catch((err)=>{
+        console.log(err);
+    })
+});
+//get one user
+router.route("/getUser/:userName").get((req,res)=>{
+    let userName = req.params.userName;
+    User.findOne({userName:userName}).then((user =>{
+        res.json(user);
+        
+    })).catch((err)=>{
+        console.log(err);
+    })
+});
 //get all users
 router.route("/").get((req,res)=>{
     User.find().then((users =>{
@@ -29,35 +47,56 @@ router.route("/").get((req,res)=>{
 })
 
 //update User
-router.route("/update/:id").put(async (req, res)=>{
+router.route("/update/:userName").put(async (req, res)=>{
     let userName = req.params.userName;
     const {firstName, lastName, password} = req.body;
 
     const updateUser = {
+        userName,
         firstName,
         lastName,
         password
     }
-    const update = await User.findByIdAndUpdate(userName, updateUser).then(()=> {
-        res.status(200).send({status: "User updated"})
+    let id = 0;
+    await User.find({userName:userName}).then((user)=>{
+        id = user[0].id;
     }).catch((err)=>{
         console.log(err);
-        res.status(500).send({status: "Error with updating data"});
-
     })
+    if(id){
+        const update = await User.findByIdAndUpdate(id, updateUser).then(()=> {
+            res.status(200).send({status: "User updated"})
+        }).catch((err)=>{
+            console.log(err);
+            res.status(500).send({status: "Error with updating data"});
+    
+        })
+    }
 
 })
 
 //delete User
-router.route("/delete/:id").delete(async (req, res)=>{
+router.route("/delete/:userName").delete(async (req, res)=>{
     let userName= req.params.userName;
-    await User.findByIdAndDelete(userName).then(()=>{
-        res.status(200).send({status: "User Deleted Successfully"});
+    let id = 0;
+    await User.find({userName:userName}).then((user)=>{
+        id = user[0].id;
+        console.log(id)
     }).catch((err)=>{
-        console.log(err.message);
-        res.status(500).send({status: "Error with delete "+ err.message});
+        console.log(err);
     })
+    if(id){
+        const update = await User.findByIdAndDelete(id).then(()=> {
+            res.status(200).send({status: "User Deleted!"})
+        }).catch((err)=>{
+            console.log(err);
+            res.status(500).send({status: "Error with deleting user"});
+    
+        })
+    }
 })
+
+
 
 
 module.exports = router;

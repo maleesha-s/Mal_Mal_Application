@@ -3,6 +3,7 @@ import 'dart:convert' show jsonDecode, jsonEncode, utf8;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:frontend_mobile/screens/Login/login.dart';
+import 'package:frontend_mobile/screens/Welcome/welcome.dart';
 import 'package:http/http.dart' as http;
 //user class
 class User{
@@ -80,7 +81,8 @@ class _BodyState extends State<Profile> {
           textColor: Colors.white,
           fontSize: 16.0
       );
-      Navigator.of(context).pushNamed(Login.routeName);
+      Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Welcome(uName:userName)));
     } else {
       throw Exception('Failed to add this user.');
     }
