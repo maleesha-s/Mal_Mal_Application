@@ -57,8 +57,8 @@ class _BodyState extends State<Body> {
       Fluttertoast.showToast(
         msg:("${User.fromJson(data[0]).userName} login successfully!" ),
         toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 5,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 2,
         backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 16.0

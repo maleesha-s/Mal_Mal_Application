@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/screens/Flower/ViewFlowers.dart';
 import 'package:frontend_mobile/screens/Login/login.dart';
 import 'package:frontend_mobile/screens/Profile/profile.dart';
 
@@ -20,7 +21,7 @@ class WelcomeBody extends State<Welcome> {
     setState(() {
       _selectedIndex = index;
       if(_selectedIndex == 1){
-        //Navigator.of(context).pushNamed(Login.routeName); -->Kithmini
+        Navigator.of(context).pushNamed(ViewFlowers.routeName);
       }else if(_selectedIndex == 2){
         //route --> Jonty
       }else if(_selectedIndex == 3){
@@ -42,7 +43,7 @@ class WelcomeBody extends State<Welcome> {
                 alignment: Alignment.topRight,
                 child:IconButton(
                   onPressed: ()=> Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Profile(uName: widget.uName))),
+                      context, MaterialPageRoute(builder: (context) =>Profile(uName: widget.uName,))),
                   icon: const Icon(Icons.account_circle_outlined,color: Colors.white),
                   
                 ) 

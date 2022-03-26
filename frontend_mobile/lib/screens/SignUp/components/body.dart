@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_svg/svg.dart';
 import 'package:frontend_mobile/screens/Login/components/background.dart';
 import 'package:http/http.dart' as http;
