@@ -31,10 +31,12 @@ connection.once("open", () => {
 //import routes
 const flowersRouter = require("./routes/flowers");
 const userRouter = require('./routes/user.js');
+const diseaseRouter = require('./routes/disease.js');
 
 //calling routes
 app.use("/flowers",flowersRouter);
 app.use("/users",userRouter);
+app.use("/diseases",diseaseRouter);
 
 app.listen(PORT, () => {
     console.log("Server is up and running")

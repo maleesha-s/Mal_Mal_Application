@@ -1,5 +1,7 @@
 // import 'package:frontend_mobile/screens/Login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/screens/Disease/view/DiseaseAdd.dart';
+import 'package:frontend_mobile/screens/Disease/view/DiseaseView.dart';
 import 'package:frontend_mobile/screens/Flower/AddFlower.dart';
 import 'package:frontend_mobile/screens/Flower/ViewFlowers.dart';
 import 'package:frontend_mobile/screens/Login/login.dart';
@@ -17,24 +19,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) {  },
+      create: (BuildContext context) {},
       child: MaterialApp(
         title: 'My Store',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.amber,
-        ), 
-        initialRoute: Login.routeName,
+        ),
+        initialRoute: DiseaseView.routeName,
         routes: {
-          AddFlower.routeName:(context) => const AddFlower(),
-          Login.routeName:(context) => const Login(),
-          Signup.routeName:(context) => const Signup(),
-          Welcome.routeName:(context) => const Welcome(),
-          ViewFlowers.routeName:(context) => const ViewFlowers(),
-
+          AddFlower.routeName: (context) => const AddFlower(),
+          Login.routeName: (context) => const Login(),
+          Signup.routeName: (context) => const Signup(),
+          Welcome.routeName: (context) => const Welcome(),
+          ViewFlowers.routeName: (context) => const ViewFlowers(),
+          DiseaseView.routeName: (context) => const DiseaseView(),
+          DiseaseAdd.routeName: (context) => const DiseaseAdd()
         },
       ),
     );
-    
   }
 }
