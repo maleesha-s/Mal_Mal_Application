@@ -78,7 +78,7 @@ class _ViewState extends State<DiseaseView> {
                         horizontal: 10, vertical: 10),
                     padding: const EdgeInsets.all(20.0),
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 248, 198, 198),
+                      color: const Color.fromARGB(172, 242, 247, 204),
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Column(
@@ -89,7 +89,7 @@ class _ViewState extends State<DiseaseView> {
                           child: SizedBox.fromSize(
                             size: const Size.fromRadius(58), // Image radius
                             child: Image.asset(
-                              'assets/images/one.jpg',
+                              'assets/images/rose.jpg',
                               fit: BoxFit.cover,
                               height: 900,
                             ),
@@ -107,6 +107,7 @@ class _ViewState extends State<DiseaseView> {
                         const SizedBox(height: 10),
                         // ignore: unnecessary_string_interpolations
                         Text(
+                          // ignore: unnecessary_string_interpolations
                           "${snapshot.data![index].antidote}",
                           style: const TextStyle(
                             fontSize: 14.0,
@@ -125,12 +126,13 @@ class _ViewState extends State<DiseaseView> {
                           padding:
                               const EdgeInsets.only(left: 150.0, top: 20.0),
                         ),
+
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             // Update screen
                             ElevatedButton(
-                              child: const Text('View Data'),
+                              child: const Text('Update'),
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -159,7 +161,7 @@ class _ViewState extends State<DiseaseView> {
 
                             // Delete button
                             ElevatedButton(
-                              child: const Text('Remove Data'),
+                              child: const Text('Remove'),
                               onPressed: () {
                                 setState(() {
                                   Navigator.push(

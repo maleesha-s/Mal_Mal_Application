@@ -54,12 +54,12 @@ class _DiseaseUpdateState extends State<DiseaseUpdate> {
                     padding: const EdgeInsets.only(left: 150.0, top: 20.0),
                   ),
                   const Image(
-                    image: AssetImage("assets/images/update.png"),
+                    image: AssetImage("assets/images/d2.png"),
                     alignment: Alignment.topRight,
                     height: 200,
                     width: 250,
                   ),
-                  Text("Update Disease",
+                  Text("Update Disease Data",
                       style: GoogleFonts.lato(
                         color: Colors.black,
                         fontSize: 30,
@@ -72,11 +72,16 @@ class _DiseaseUpdateState extends State<DiseaseUpdate> {
                     controller: _diseaseName,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      fillColor: const Color.fromARGB(255, 159, 223, 207),
+                      fillColor: const Color.fromARGB(172, 242, 247, 204),
                       filled: true,
-                      labelText: widget.disease.diseaseName,
+                      labelText: "Enter the disease Name",
+                      hintStyle:
+                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
+                      labelStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 7, 7, 7)),
                     ),
                   ),
                   Container(
@@ -86,25 +91,36 @@ class _DiseaseUpdateState extends State<DiseaseUpdate> {
                     controller: _antidote,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      fillColor: const Color.fromARGB(255, 159, 223, 207),
+                      fillColor: const Color.fromARGB(172, 242, 247, 204),
                       filled: true,
-                      labelText: widget.disease.antidote,
+                      labelText: "Enter the Disease antidote",
+                      hintStyle:
+                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
+                      labelStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 7, 7, 7)),
                     ),
                   ),
                   Container(
                     padding: const EdgeInsets.only(left: 150.0, top: 20.0),
                   ),
                   TextFormField(
+                    maxLines: 3,
                     controller: _description,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      fillColor: const Color.fromARGB(255, 159, 223, 207),
+                      fillColor: const Color.fromARGB(172, 242, 247, 204),
                       filled: true,
-                      labelText: widget.disease.description,
+                      labelText: "Enter the Disease description",
+                      hintStyle:
+                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
+                      labelStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 7, 7, 7)),
                     ),
                   ),
                   Container(

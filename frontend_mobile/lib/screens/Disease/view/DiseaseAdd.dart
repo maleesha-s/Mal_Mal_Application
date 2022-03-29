@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:frontend_mobile/screens/Disease/modle/Disease.dart';
 import 'package:frontend_mobile/screens/Disease/service/DiseaseService.dart';
 import 'package:frontend_mobile/screens/Disease/view/DiseaseView.dart';
@@ -10,7 +11,7 @@ class DiseaseAdd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'Add a Disease';
+    const appTitle = 'Create a Flower Disease';
     return MaterialApp(
       title: appTitle,
       debugShowCheckedModeBanner: false,
@@ -64,11 +65,11 @@ class MyCustomFormState extends State<MyCustomForm> {
             // Here the height of the container is 45% of our total height
             height: size.height,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(172, 247, 225, 30),
-              image: DecorationImage(
-                alignment: Alignment.topLeft,
-                image: AssetImage("assets/images/x.png"),
-              ),
+              color: Color.fromARGB(172, 242, 247, 204),
+              // image: DecorationImage(
+              //   alignment: Alignment.topLeft,
+              //   image: AssetImage("assets/images/x.png"),
+              // ),
             ),
           ),
           SafeArea(
@@ -78,12 +79,12 @@ class MyCustomFormState extends State<MyCustomForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Image(
-                    image: AssetImage("assets/images/mal.png"),
+                    image: AssetImage("assets/images/d2.png"),
                     alignment: Alignment.topRight,
                     height: 200,
                     width: 250,
                   ),
-                  Text("Add a Disease",
+                  Text("Create a Disease",
                       style: GoogleFonts.lato(
                         color: Colors.black,
                         fontSize: 40,
@@ -96,12 +97,17 @@ class MyCustomFormState extends State<MyCustomForm> {
                     controller: _diseaseName,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       fillColor: Colors.white,
                       filled: true,
                       hintText: 'Enter the disease Name',
                       labelText: 'Enter the disease Name',
+                      hintStyle:
+                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
+                      labelStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 7, 7, 7)),
                     ),
                   ),
                   Container(
@@ -111,10 +117,15 @@ class MyCustomFormState extends State<MyCustomForm> {
                     controller: _antidote,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       fillColor: Colors.white,
                       filled: true,
+                      hintStyle:
+                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
+                      labelStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 7, 7, 7)),
                       hintText: 'Enter the antidote',
                       labelText: 'Enter the antidote',
                     ),
@@ -124,14 +135,20 @@ class MyCustomFormState extends State<MyCustomForm> {
                   ),
                   TextFormField(
                     controller: _description,
+                    maxLines: 2,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       fillColor: Colors.white,
                       filled: true,
-                      hintText: 'Enter the flower description',
-                      labelText: 'Enter the flower description',
+                      hintText: 'Enter the Disease description',
+                      labelText: 'Enter the Disease description',
+                      hintStyle:
+                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
+                      labelStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 7, 7, 7)),
                     ),
                   ),
                   Container(
@@ -162,8 +179,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                           });
                         },
                         style: ElevatedButton.styleFrom(
-                            primary: const Color.fromARGB(255, 244, 54, 143),
-                            onPrimary: Colors.white,
+                            primary: const Color.fromARGB(255, 247, 231, 19),
+                            onPrimary: const Color.fromARGB(255, 8, 8, 8),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32.0),
                             ),
