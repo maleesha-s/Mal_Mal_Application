@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/screens/Disease/modle/Disease.dart';
 import 'package:frontend_mobile/screens/Disease/service/DiseaseService.dart';
+import 'package:frontend_mobile/screens/Disease/utils/ImageHndler.dart';
 import 'package:frontend_mobile/screens/Disease/view/DiseaseAdd.dart';
 import 'package:frontend_mobile/screens/Disease/view/DiseaseUpdate.dart';
+import 'package:frontend_mobile/screens/Flower/ViewFlowers.dart';
 import 'package:frontend_mobile/screens/Welcome/welcome.dart';
 
 class DiseaseView extends StatefulWidget {
@@ -20,11 +22,15 @@ class _ViewState extends State<DiseaseView> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+  var imageurl;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
         Navigator.of(context).pushNamed(Welcome.routeName);
+      } else if (_selectedIndex == 1) {
+        Navigator.of(context).pushNamed(ViewFlowers.routeName);
       } else if (_selectedIndex == 2) {
         //route --> Jonty
       } else if (_selectedIndex == 3) {
@@ -85,35 +91,52 @@ class _ViewState extends State<DiseaseView> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ClipOval(
-                          child: SizedBox.fromSize(
-                            size: const Size.fromRadius(58), // Image radius
-                            child: Image.asset(
-                              'assets/images/rose.jpg',
-                              fit: BoxFit.cover,
-                              height: 900,
+                        Row(
+                          children: [
+                            ClipOval(
+                              child: SizedBox.fromSize(
+                                size: const Size.fromRadius(58), // Image radius
+                                child: Image.asset(
+                                  "assets/images/${ImageHandler().getRandomImage()}",
+                                  fit: BoxFit.cover,
+                                  height: 900,
+                                ),
+                              ),
                             ),
-                          ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    // ignore: unnecessary_string_interpolations
+                                    "Diesease name : ${snapshot.data![index].diseaseName}",
+                                    // ignore: prefer_const_constructors
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // ignore: unnecessary_string_interpolations
+                                  Text(
+                                    // ignore: unnecessary_string_interpolations
+                                    "Antidotes :${snapshot.data![index].antidote}",
+                                    style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 22, 22, 22),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          // ignore: unnecessary_string_interpolations
-                          "${snapshot.data![index].diseaseName}",
-                          // ignore: prefer_const_constructors
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        // ignore: unnecessary_string_interpolations
-                        Text(
-                          // ignore: unnecessary_string_interpolations
-                          "${snapshot.data![index].antidote}",
-                          style: const TextStyle(
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 22, 22, 22),
-                          ),
+                        const SizedBox(
+                          height: 20,
                         ),
                         // ignore: unnecessary_string_interpolations
                         Text("${snapshot.data![index].description}",
@@ -127,62 +150,65 @@ class _ViewState extends State<DiseaseView> {
                               const EdgeInsets.only(left: 150.0, top: 20.0),
                         ),
 
-                        Column(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             // Update screen
-                            ElevatedButton(
-                              child: const Text('Update'),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        DiseaseUpdate(snapshot.data![index]),
-                                    // Pass the arguments as part of the RouteSettings. The
-                                    // DetailScreen reads the arguments from these settings.
-                                  ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  primary:
-                                      const Color.fromARGB(255, 102, 233, 109),
-                                  onPrimary: Colors.black,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 20.0, horizontal: 50.0)),
+                            Flexible(
+                              child: ElevatedButton(
+                                child: const Text('Update'),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DiseaseUpdate(snapshot.data![index]),
+                                      // Pass the arguments as part of the RouteSettings. The
+                                      // DetailScreen reads the arguments from these settings.
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: const Color.fromARGB(
+                                        255, 102, 233, 109),
+                                    onPrimary: Colors.black,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20.0, horizontal: 50.0)),
+                              ),
                             ),
-                            Container(
-                              padding:
-                                  const EdgeInsets.only(left: 150.0, top: 20.0),
+                            const SizedBox(
+                              width: 10,
                             ),
 
                             // Delete button
-                            ElevatedButton(
-                              child: const Text('Remove'),
-                              onPressed: () {
-                                setState(() {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const DiseaseView()));
-                                  futurePost = DiseaseService().deleteDisease(
-                                          snapshot.data![index].id)
-                                      as Future<List<Disease>>;
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  primary:
-                                      const Color.fromARGB(255, 235, 85, 85),
-                                  onPrimary: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 20.0, horizontal: 50.0)),
+                            Flexible(
+                              child: ElevatedButton(
+                                child: const Text('Remove'),
+                                onPressed: () {
+                                  setState(() {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const DiseaseView()));
+                                    futurePost = DiseaseService().deleteDisease(
+                                            snapshot.data![index].id)
+                                        as Future<List<Disease>>;
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary:
+                                        const Color.fromARGB(255, 235, 85, 85),
+                                    onPrimary: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 20.0, horizontal: 50.0)),
+                              ),
                             ),
                           ],
                         )
@@ -204,17 +230,17 @@ class _ViewState extends State<DiseaseView> {
               backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.add),
+              icon: Icon(Icons.local_florist_rounded),
               label: 'Flowers',
               backgroundColor: Colors.green,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.school),
+              icon: Icon(Icons.volunteer_activism_rounded),
               label: 'Fertilizers',
               backgroundColor: Colors.purple,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.coronavirus),
               label: 'Disease',
               backgroundColor: Colors.pink,
             ),

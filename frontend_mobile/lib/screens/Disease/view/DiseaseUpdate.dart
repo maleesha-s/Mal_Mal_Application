@@ -41,117 +41,125 @@ class _DiseaseUpdateState extends State<DiseaseUpdate> {
   @override
   Widget build(BuildContext context) {
     // Use the Todo to create the UI.
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.disease.diseaseName),
-        ),
-        body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.only(left: 150.0, top: 20.0),
-                  ),
-                  const Image(
-                    image: AssetImage("assets/images/d2.png"),
-                    alignment: Alignment.topRight,
-                    height: 200,
-                    width: 250,
-                  ),
-                  Text("Update Disease Data",
-                      style: GoogleFonts.lato(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w900,
-                      )),
-                  Container(
-                    padding: const EdgeInsets.only(left: 150.0, top: 20.0),
-                  ),
-                  TextFormField(
-                    controller: _diseaseName,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+          appBar: AppBar(
+            title: Text(widget.disease.diseaseName),
+          ),
+          body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(left: 150.0, top: 20.0),
                       ),
-                      fillColor: const Color.fromARGB(172, 242, 247, 204),
-                      filled: true,
-                      labelText: "Enter the disease Name",
-                      hintStyle:
-                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
-                      labelStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 7, 7, 7)),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 150.0, top: 20.0),
-                  ),
-                  TextFormField(
-                    controller: _antidote,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                      const Image(
+                        image: AssetImage("assets/images/d2.png"),
+                        alignment: Alignment.topRight,
+                        height: 200,
+                        width: 250,
                       ),
-                      fillColor: const Color.fromARGB(172, 242, 247, 204),
-                      filled: true,
-                      labelText: "Enter the Disease antidote",
-                      hintStyle:
-                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
-                      labelStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 7, 7, 7)),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 150.0, top: 20.0),
-                  ),
-                  TextFormField(
-                    maxLines: 3,
-                    controller: _description,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                      Text("Update Disease Data",
+                          style: GoogleFonts.lato(
+                            color: Colors.black,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                          )),
+                      Container(
+                        padding: const EdgeInsets.only(left: 150.0, top: 20.0),
                       ),
-                      fillColor: const Color.fromARGB(172, 242, 247, 204),
-                      filled: true,
-                      labelText: "Enter the Disease description",
-                      hintStyle:
-                          const TextStyle(color: Color.fromARGB(255, 7, 0, 0)),
-                      labelStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 7, 7, 7)),
-                    ),
-                  ),
-                  Container(
-                      margin: const EdgeInsets.all(10),
-                      alignment: Alignment.center,
-                      child: ElevatedButton(
-                        child: const Text("Update Disease"),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const DiseaseView()));
-                          DiseaseService().updateDisease(
-                              widget.disease.id,
-                              _diseaseName.text,
-                              _antidote.text,
-                              _description.text);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const DiseaseView()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color.fromARGB(255, 228, 198, 27),
-                            onPrimary: Colors.black,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20.0, horizontal: 50.0)),
-                      )),
-                ])));
+                      TextFormField(
+                        controller: _diseaseName,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          fillColor: const Color.fromARGB(172, 242, 247, 204),
+                          filled: true,
+                          labelText: "Enter the disease Name",
+                          hintStyle: const TextStyle(
+                              color: Color.fromARGB(255, 7, 0, 0)),
+                          labelStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 7, 7, 7)),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(left: 150.0, top: 20.0),
+                      ),
+                      TextFormField(
+                        controller: _antidote,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          fillColor: const Color.fromARGB(172, 242, 247, 204),
+                          filled: true,
+                          labelText: "Enter the Disease antidote",
+                          hintStyle: const TextStyle(
+                              color: Color.fromARGB(255, 7, 0, 0)),
+                          labelStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 7, 7, 7)),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(left: 150.0, top: 20.0),
+                      ),
+                      TextFormField(
+                        maxLines: 3,
+                        controller: _description,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          fillColor: const Color.fromARGB(172, 242, 247, 204),
+                          filled: true,
+                          labelText: "Enter the Disease description",
+                          hintStyle: const TextStyle(
+                              color: Color.fromARGB(255, 7, 0, 0)),
+                          labelStyle: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 7, 7, 7)),
+                        ),
+                      ),
+                      Container(
+                          margin: const EdgeInsets.all(10),
+                          alignment: Alignment.center,
+                          child: ElevatedButton(
+                            child: const Text("Update Disease"),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DiseaseView()));
+                              DiseaseService().updateDisease(
+                                  widget.disease.id,
+                                  _diseaseName.text,
+                                  _antidote.text,
+                                  _description.text);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DiseaseView()));
+                            },
+                            style: ElevatedButton.styleFrom(
+                                primary:
+                                    const Color.fromARGB(255, 228, 198, 27),
+                                onPrimary: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(32.0),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 50.0)),
+                          )),
+                    ]),
+              ))),
+    );
   }
 }
