@@ -176,7 +176,7 @@ class _ViewState extends State<DiseaseView> {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 20.0, horizontal: 50.0)),
+                                        vertical: 15.0, horizontal: 40.0)),
                               ),
                             ),
                             const SizedBox(
@@ -207,7 +207,7 @@ class _ViewState extends State<DiseaseView> {
                                       borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 20.0, horizontal: 50.0)),
+                                        vertical: 15.0, horizontal: 40.0)),
                               ),
                             ),
                           ],

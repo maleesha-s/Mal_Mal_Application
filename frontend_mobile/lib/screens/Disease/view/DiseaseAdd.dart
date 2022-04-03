@@ -168,13 +168,14 @@ class MyCustomFormState extends State<MyCustomForm> {
                                     //Check empty fields
                                     if (_diseaseName.text.isEmpty) {
                                       Fluttertoast.showToast(
-                                        msg: "Fields cannot be empty ",
+                                        msg: " Form fields cannot be empty ",
                                         toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.CENTER,
-                                        timeInSecForIosWeb: 5,
+                                        gravity: ToastGravity.TOP,
+                                        timeInSecForIosWeb: 1000,
                                         backgroundColor: const Color.fromARGB(
-                                            255, 240, 133, 10),
-                                        textColor: Colors.white,
+                                            255, 240, 110, 10),
+                                        textColor:
+                                            const Color.fromARGB(255, 7, 7, 7),
                                         fontSize: 16.0,
                                       );
                                     } else {
