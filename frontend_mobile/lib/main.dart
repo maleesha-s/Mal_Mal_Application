@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.amber,
         ),
-        initialRoute: DiseaseView.routeName,
+        initialRoute: Login.routeName,
         routes: {
           AddFlower.routeName: (context) => const AddFlower(),
           Login.routeName: (context) => const Login(),
@@ -36,6 +36,21 @@ class MyApp extends StatelessWidget {
           DiseaseView.routeName: (context) => const DiseaseView(),
           DiseaseAdd.routeName: (context) => const DiseaseAdd()
         },
+//     return MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider.value(value: Fertilizers()),
+//         ChangeNotifierProvider.value(value: Fertilizer('', '', '', '', '')),
+//       ],
+//       child: Consumer<Fertilizers>(
+//         builder: (ctx, authData, _) => GetMaterialApp(
+//           debugShowCheckedModeBanner: false,
+//           title: 'Mal Mal',
+//           theme: ThemeData(
+//             primarySwatch: Colors.amber,
+//           ),
+//           home: const SampleHomeScreen(),
+//         ),
+//
       ),
     );
   }
