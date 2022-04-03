@@ -28,6 +28,17 @@ class DiseaseService {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+    if (response.statusCode == 200) {
+      Fluttertoast.showToast(
+        msg: "Disease Deleted Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 3,
+        backgroundColor: const Color.fromARGB(255, 253, 3, 3),
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
     return response;
   }
 
