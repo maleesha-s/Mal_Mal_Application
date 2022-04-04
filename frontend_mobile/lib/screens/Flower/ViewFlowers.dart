@@ -7,6 +7,8 @@ import 'package:frontend_mobile/screens/Welcome/welcome.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
+import '../Fertilizer/fertilizers_screen.dart';
+
 List<Flowers> postFromJson(String str) =>
     List<Flowers>.from(json.decode(str).map((x) => Flowers.fromMap(x)));
 
@@ -75,6 +77,12 @@ class _ViewState extends State<ViewFlowers> {
       if(_selectedIndex == 0){
         Navigator.of(context).pushNamed(Welcome.routeName);
       }else if(_selectedIndex == 2){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const FertilizersScreen(),
+          ),
+        );
         //route --> Jonty
       }else if(_selectedIndex == 3){
         //route --> Janith

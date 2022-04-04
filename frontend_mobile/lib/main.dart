@@ -5,6 +5,7 @@ import 'package:frontend_mobile/screens/Disease/view/DiseaseAdd.dart';
 import 'package:frontend_mobile/screens/Disease/view/DiseaseView.dart';
 import 'package:frontend_mobile/screens/Flower/AddFlower.dart';
 import 'package:frontend_mobile/screens/Flower/ViewFlowers.dart';
+import 'package:frontend_mobile/screens/Fertilizer/fertilizers_screen.dart';
 import 'package:frontend_mobile/screens/Login/login.dart';
 import 'package:frontend_mobile/screens/SignUp/signup.dart';
 import 'package:frontend_mobile/screens/Welcome/welcome.dart';

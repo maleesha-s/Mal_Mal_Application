@@ -4,6 +4,8 @@ import 'package:frontend_mobile/screens/Flower/ViewFlowers.dart';
 import 'package:frontend_mobile/screens/Login/login.dart';
 import 'package:frontend_mobile/screens/Profile/profile.dart';
 
+import '../Fertilizer/fertilizers_screen.dart';
+
 class Welcome extends StatefulWidget {
   static const String routeName = '/welcome';
   final String? uName;
@@ -24,6 +26,12 @@ class WelcomeBody extends State<Welcome> {
       if (_selectedIndex == 1) {
         Navigator.of(context).pushNamed(ViewFlowers.routeName);
       } else if (_selectedIndex == 2) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const FertilizersScreen(),
+          ),
+        );
         //route --> Jonty
       } else if (_selectedIndex == 3) {
         Navigator.of(context).pushNamed(DiseaseView.routeName);
