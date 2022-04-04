@@ -3,15 +3,13 @@ import 'package:frontend_mobile/providers/fertilizer_provider.dart';
 import 'package:frontend_mobile/screens/Fertilizer/Widgets/snack_bar.dart';
 import 'package:provider/provider.dart';
 
-class AddEditFertilizerScreen extends StatefulWidget {
-  const AddEditFertilizerScreen({Key? key}) : super(key: key);
-  static const String routeName = '/addEditFertilizer';
+class EditFertilizerScreen extends StatefulWidget {
+  const EditFertilizerScreen({Key? key}) : super(key: key);
   @override
-  State<AddEditFertilizerScreen> createState() =>
-      _AddEditFertilizerScreenState();
+  State<EditFertilizerScreen> createState() => _EditFertilizerScreenState();
 }
 
-class _AddEditFertilizerScreenState extends State<AddEditFertilizerScreen> {
+class _EditFertilizerScreenState extends State<EditFertilizerScreen> {
   final _formKey = GlobalKey<FormState>();
   late FocusScopeNode node;
 
@@ -24,7 +22,6 @@ class _AddEditFertilizerScreenState extends State<AddEditFertilizerScreen> {
   @override
   void initState() {
     create = true;
-
     super.initState();
   }
 
@@ -56,7 +53,7 @@ class _AddEditFertilizerScreenState extends State<AddEditFertilizerScreen> {
                 const SizedBox(height: 20),
                 Center(
                   child: Text(
-                    create ? 'Create Fertilizer' : 'Update Fertilizer',
+                    'Update Fertilizer',
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
@@ -72,12 +69,12 @@ class _AddEditFertilizerScreenState extends State<AddEditFertilizerScreen> {
                     child: MaterialButton(
                       color: Theme.of(context).primaryColor,
                       onPressed: () {
-                        create ? createFertilizer() : updateFertilizer();
+                        updateFertilizer();
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          create ? "Create" : "Update",
+                          "Update",
                           style: const TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -167,30 +164,6 @@ class _AddEditFertilizerScreenState extends State<AddEditFertilizerScreen> {
     );
   }
 
-  createFertilizer() async {
-    await Provider.of<Fertilizers>(context, listen: false)
-        .createFertilizer(
-      fertilizerName.text,
-      fertilizerCode.text,
-      fertilizerWeight.text,
-      fertilizerDescription.text,
-    )
-        .then(
-      (result) {
-        Navigator.pop(context);
-        if (result is String) {
-          ScaffoldMessenger.of(context).showSnackBar(successSnackBar(result));
-        } else {
-          Navigator.pop(context);
-        }
-      },
-      onError: (message) {
-        Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(message));
-      },
-    );
-  }
-
   updateFertilizer() async {
     await Provider.of<Fertilizers>(context, listen: false)
         .updateFertilizer(
@@ -206,7 +179,6 @@ class _AddEditFertilizerScreenState extends State<AddEditFertilizerScreen> {
         if (result is String) {
           ScaffoldMessenger.of(context).showSnackBar(successSnackBar(result));
         } else {
-          Navigator.pop(context);
           Navigator.pop(context);
         }
       },

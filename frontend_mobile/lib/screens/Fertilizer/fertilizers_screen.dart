@@ -1,10 +1,9 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/providers/fertilizer_provider.dart';
 import 'package:frontend_mobile/screens/Fertilizer/Widgets/fertilizer_tile_widget.dart';
 import 'package:frontend_mobile/screens/Fertilizer/Widgets/snack_bar.dart';
-import 'package:frontend_mobile/screens/Fertilizer/add_edit_fertilizer_screen.dart';
+import 'package:frontend_mobile/screens/Fertilizer/add_fertilizer_screen.dart';
 import 'package:frontend_mobile/screens/Fertilizer/view_fertilizer.dart';
 import 'package:provider/provider.dart';
 
@@ -25,15 +24,18 @@ class _FertilizersScreenState extends State<FertilizersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Fertilizers fertilizers = Provider.of<Fertilizers>(context, listen: false);
+    Provider.of<Fertilizers>(context, listen: false).fetchFertilizers();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AddEditFertilizerScreen(),
+              builder: (context) => const AddFertilizerScreen(),
             ),
+          ).whenComplete(
+            () => Provider.of<Fertilizers>(context, listen: false)
+                .fetchFertilizers(),
           );
         },
         child: const Icon(Icons.add),
@@ -59,44 +61,32 @@ class _FertilizersScreenState extends State<FertilizersScreen> {
             ),
           ),
           Expanded(
-            child: FutureBuilder(
-              future: Provider.of<Fertilizers>(context, listen: false)
-                  .fetchFertilizers(),
-              builder: (ctx, dataSnapshot) {
-                if (fertilizers.fertilizers.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'No Fertilizers To Load',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  );
-                }
-                return Consumer<Fertilizers>(
-                  builder: (ctx, fertilizerData, child) => ListView.builder(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    itemCount: fertilizerData.getFertilizers().length,
-                    itemBuilder: (ctx, i) => Dismissible(
-                      key: UniqueKey(),
-                      onDismissed: (direction) async {
-                        deleteFertilizerDialog(
-                            fertilizerData.getFertilizers()[i].id);
+            child: Consumer<Fertilizers>(
+              builder: (context, fertilizer, child) {
+                return ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  itemCount: fertilizer.getFertilizers().length,
+                  itemBuilder: (ctx, i) => Dismissible(
+                    key: UniqueKey(),
+                    onDismissed: (direction) async {
+                      deleteFertilizerDialog(fertilizer.getFertilizers()[i].id);
+                    },
+                    child: GestureDetector(
+                      onTap: () async {
+                        Provider.of<Fertilizers>(context, listen: false)
+                            .fetchFertilizer(fertilizer.getFertilizers()[i].id);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ViewFertilizerScreen(),
+                          ),
+                        ).whenComplete(
+                          () => Provider.of<Fertilizers>(context, listen: false)
+                              .fetchFertilizers(),
+                        );
                       },
-                      child: GestureDetector(
-                        onTap: () async {
-                          Provider.of<Fertilizers>(context, listen: false)
-                              .fetchFertilizer(
-                                  fertilizerData.getFertilizers()[i].id);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const ViewFertilizerScreen(),
-                            ),
-                          );
-                        },
-                        child: FertilizerTile(
-                          fertilizerData.getFertilizers()[i],
-                        ),
+                      child: FertilizerTile(
+                        fertilizer.getFertilizers()[i],
                       ),
                     ),
                   ),
@@ -170,7 +160,9 @@ class _FertilizersScreenState extends State<FertilizersScreen> {
         Navigator.pop(context);
         if (result is String) {
           ScaffoldMessenger.of(context).showSnackBar(errorSnackBar(result));
-        } else {}
+        } else {
+          Provider.of<Fertilizers>(context, listen: false).fetchFertilizers();
+        }
       },
       onError: (message) {
         Navigator.pop(context);

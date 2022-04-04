@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend_mobile/providers/fertilizer_provider.dart';
-import 'package:frontend_mobile/screens/Fertilizer/add_edit_fertilizer_screen.dart';
+import 'package:frontend_mobile/screens/Fertilizer/edit_fertilizer_screen.dart';
 import 'package:provider/provider.dart';
 
 class ViewFertilizerScreen extends StatelessWidget {
@@ -21,11 +21,11 @@ class ViewFertilizerScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AddEditFertilizerScreen(),
+                  builder: (context) => const EditFertilizerScreen(),
                 ),
               );
             },
-            icon: Icon(Icons.edit),
+            icon: const Icon(Icons.edit),
           ),
         ],
       ),
