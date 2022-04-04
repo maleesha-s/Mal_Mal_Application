@@ -6,7 +6,7 @@ import 'package:frontend_mobile/screens/Disease/modle/Disease.dart';
 import 'package:http/http.dart' as http;
 
 class DiseaseService {
-  static const baseUrl = "http://localhost:8070/diseases/api/v1/";
+  static const baseUrl = "http://10.0.2.2:8070/diseases/api/v1/";
   // static const baseUrl = "http://10.0.2.2:8070/diseases/api/v1/";
 
   Future<List<Disease>> getAllDisease() async {
