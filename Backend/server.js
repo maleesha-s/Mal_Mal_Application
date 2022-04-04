@@ -31,20 +31,14 @@ connection.once("open", () => {
 //import routes
 const flowersRouter = require("./routes/flowers");
 const userRouter = require('./routes/user.js');
-<<<<<<< HEAD
 const diseaseRouter = require('./routes/disease.js');
-=======
 const fertilizerRouter = require('./routes/fertilizerRoute');
->>>>>>> 607477608b3edefba388f8dd06b25a66412f0b61
 
 //calling routes
 app.use("/flowers",flowersRouter);
 app.use("/users",userRouter);
-<<<<<<< HEAD
 app.use("/diseases",diseaseRouter);
-=======
 app.use("/fertilizer",fertilizerRouter);
->>>>>>> 607477608b3edefba388f8dd06b25a66412f0b61
 
 app.listen(PORT, () => {
     console.log("Server is up and running")
