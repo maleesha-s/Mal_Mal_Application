@@ -1,5 +1,6 @@
 // import 'package:frontend_mobile/screens/Login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend_mobile/providers/fertilizer_provider.dart';
 import 'package:frontend_mobile/screens/Disease/view/DiseaseAdd.dart';
 import 'package:frontend_mobile/screens/Disease/view/DiseaseView.dart';
 import 'package:frontend_mobile/screens/Flower/AddFlower.dart';
@@ -18,8 +19,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) {},
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: Fertilizers()),
+        ChangeNotifierProvider.value(value: Fertilizer('', '', '', '', '')),
+      ],
       child: MaterialApp(
         title: 'My Store',
         debugShowCheckedModeBanner: false,
@@ -36,21 +40,6 @@ class MyApp extends StatelessWidget {
           DiseaseView.routeName: (context) => const DiseaseView(),
           DiseaseAdd.routeName: (context) => const DiseaseAdd()
         },
-//     return MultiProvider(
-//       providers: [
-//         ChangeNotifierProvider.value(value: Fertilizers()),
-//         ChangeNotifierProvider.value(value: Fertilizer('', '', '', '', '')),
-//       ],
-//       child: Consumer<Fertilizers>(
-//         builder: (ctx, authData, _) => GetMaterialApp(
-//           debugShowCheckedModeBanner: false,
-//           title: 'Mal Mal',
-//           theme: ThemeData(
-//             primarySwatch: Colors.amber,
-//           ),
-//           home: const SampleHomeScreen(),
-//         ),
-//
       ),
     );
   }
