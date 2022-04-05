@@ -43,7 +43,7 @@ class _BodyState extends State<Body> {
 
   void userLogin(String userName, String password) async {
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:8070/users/login'),
+      Uri.parse('http://127.0.0.1:8070/users/login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 Future<Flowers> addFlower(
     String flowerName, String commonNames, String description) async {
   final response = await http.post(
-    Uri.parse('http://10.0.2.2:8070/flowers/addFlower'),
+    Uri.parse('http://127.0.0.1:8070/flowers/addFlower'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

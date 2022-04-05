@@ -35,8 +35,8 @@ class Fertilizers with ChangeNotifier {
   Future<void> fetchFertilizers() async {
     try {
       final response = await http.get(
+        Uri.parse('http://127.0.0.1:8070/fertilizer/GetAllFertilizer'),
         // Uri.parse('http://10.0.2.2:8070/fertilizer/GetAllFertilizer'),
-        Uri.parse('http://10.0.2.2:8070/fertilizer/GetAllFertilizer'),
       );
       switch (response.statusCode) {
         case 200:
@@ -67,8 +67,8 @@ class Fertilizers with ChangeNotifier {
   Future<void> fetchFertilizer(id) async {
     try {
       final response = await http.get(
+        Uri.parse('http://127.0.0.1:8070/fertilizer/GetFertilizer/$id'),
         // Uri.parse('http://10.0.2.2:8070/fertilizer/GetFertilizer/$id'),
-        Uri.parse('http://10.0.2.2:8070/fertilizer/GetFertilizer/$id'),
       );
       switch (response.statusCode) {
         case 200:
@@ -104,8 +104,8 @@ class Fertilizers with ChangeNotifier {
     };
     try {
       final response = await http.post(
+        Uri.parse('http://127.0.0.1:8070/fertilizer/add'),
         // Uri.parse('http://10.0.2.2:8070/fertilizer/add'),
-        Uri.parse('http://10.0.2.2:8070/fertilizer/add'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -137,8 +137,8 @@ class Fertilizers with ChangeNotifier {
     };
     try {
       final response = await http.put(
+        Uri.parse('http://127.0.0.1:8070/fertilizer/UpdateData/$id'),
         // Uri.parse('http://10.0.2.2:8070/fertilizer/UpdateData/$id'),
-        Uri.parse('http://10.0.2.2:8070/fertilizer/UpdateData/$id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -158,8 +158,8 @@ class Fertilizers with ChangeNotifier {
   Future<dynamic> deleteFertilizer(id) async {
     try {
       final response = await http.delete(
+        Uri.parse('http://127.0.0.1:8070/fertilizer/Delete/$id'),
         // Uri.parse('http://10.0.2.2:8070/fertilizer/Delete/$id'),
-        Uri.parse('http://10.0.2.2:8070/fertilizer/Delete/$id'),
       );
       notifyListeners();
       if (response.statusCode == 200) {

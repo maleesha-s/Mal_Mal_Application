@@ -34,7 +34,7 @@ class Flowers {
 //Fetch flower details
 Future<List<Flowers>> fetchFlowers() async {
   final response =
-      await http.get(Uri.parse('http://10.0.2.2:8070/flowers/allFlowers'));
+      await http.get(Uri.parse('http://127.0.0.1:8070/flowers/allFlowers'));
 
   if (response.statusCode == 200) {
     final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -48,7 +48,7 @@ Future<List<Flowers>> fetchFlowers() async {
 //delete flowers
 Future<http.Response> deleteFlower(String flowerName) async {
   final http.Response response = await http.delete(
-    Uri.parse('http://10.0.2.2:8070/flowers/deleteName/$flowerName'),
+    Uri.parse('http://127.0.0.1:8070/flowers/deleteName/$flowerName'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -392,7 +392,7 @@ class DetailScreen extends StatelessWidget {
 Future<Flowers> updateFlower(
     String flowerName, String commonNames, String description) async {
   final response = await http.put(
-    Uri.parse('http://10.0.2.2:8070/flowers/updateFlower/$flowerName'),
+    Uri.parse('http://127.0.0.1:8070/flowers/updateFlower/$flowerName'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
